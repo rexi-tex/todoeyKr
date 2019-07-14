@@ -73,6 +73,7 @@ class TodoListViewController: UITableViewController {
         //After selecting a item in the list stop hilighting the cell in the table view
         present(alert, animated: true, completion: nil)
         
+        
     }
         
         
