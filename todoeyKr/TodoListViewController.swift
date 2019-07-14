@@ -12,10 +12,17 @@ class TodoListViewController: UITableViewController {
 
     var itemArray = ["First To Do","Second To Do","Third To Do Dude"]
     
+    let defaults = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        // set defaults to stay in the app even if it crashes KEVIN!
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
+        
     }
 
     //MARK - Tableview Datasource Methods
@@ -57,10 +64,19 @@ class TodoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            //what will happen after user clicks on the plus sign.
+            //what will happen after user clicks on the plus sign button. Adding it to the array
             self.itemArray.append(alertTextFromUser.text!)
+            
+            // /Users/kevinrex/Library/Developer/CoreSimulator/Devices/2EE33B41-092E-465F-AC1F-EE2BF0248259/data/Containers/Data/Application/C54E6F0E-69EB-4A95-88B2-C8CF3A7570C1/Documents
+            
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
             self.tableView.reloadData()
             print("succussfully added item to todo list")
+            
+            
+            
         }
         
         alert.addTextField { (alertTextField) in
