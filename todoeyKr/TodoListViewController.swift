@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["First To Do","Second To Do","Third To Do Dude"]
+    var itemArray = ["First To Do","Second To Do","Third To Do Dude"]
     
     
     override func viewDidLoad() {
@@ -50,6 +50,35 @@ class TodoListViewController: UITableViewController {
     }
     
     
-    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var alertTextFromUser = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen after user clicks on the plus sign.
+            self.itemArray.append(alertTextFromUser.text!)
+            self.tableView.reloadData()
+            print("succussfully added item to todo list")
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Type New Todo"
+            alertTextFromUser = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        //After selecting a item in the list stop hilighting the cell in the table view
+        present(alert, animated: true, completion: nil)
+        
+    }
+        
+        
+        
+        
 }
+    
+
 
